@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#input").keyup(function (e) {
+                if (e.keyCode == 32) {
+                    var input = "pair=" + $(this).val();
+
+                    $.get("/predict", input, function (data) {
+                        console.log(data);
+                        $('#input').autocomplete({
+                            source: data
+                        });
+                    });
+                }
+
+            });
+        });
+
+    </script>
+    <meta charset="UTF-8">
+    <title>Arabic Trigram</title>
+</head>
+<body style="background: #785D56; font-family: 'Raleway', sans-serif;">
+    <br><br><br>
+    <div class="predict" style="width: 500px;">
+        <h1 class="predict-header">Arabic Trigram</h1>
+        <form class="predict-container">
+            <div class="ui-widget" class="predict-container">
+              <input id="input" name="pair" type="text" placeholder="اكتب...">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
